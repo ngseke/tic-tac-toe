@@ -7,3 +7,5 @@ const config = {
   messagingSenderId: '663947674169'
 }
 firebase.initializeApp(config)
+
+const db = firebase.database()

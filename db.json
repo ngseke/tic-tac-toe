@@ -2,6 +2,7 @@
   "board": [
     [null, null, null],
     [null, null, null],
-    [null, null, null]
+    [null, null, null],
+    "hello"
   ]
 }
