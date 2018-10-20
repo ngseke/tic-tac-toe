@@ -9,9 +9,32 @@ html(lang='zh-Hant-TW')
     link(rel='stylesheet', href='style.css')
   body
     #app
-      h1 {{a}}
-      #board
+      h1 
+        span(title='圈圈叉叉') OOXX
+        small(v-if='gameCounter')  (第 {{ gameCounter }} 場)
+      #config
+        div 
+          span 你：
+          a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') O
+          a.cross(href='#' @click.prevent='me = 2' :class='{ active: me === 2 }') X
+      #board(v-if='game')
+        - let row = 0
+        while row < 3
+          .row
+            - let col = 0
+            while col < 3
+              .block(id=`b${row}${col}` @click=`clickBlock(${row}, ${col})`)
+                span.circle(v-if=`game.board[${row}][${col}] === 1`) O
+                span.cross(v-if=`game.board[${row}][${col}] === 2`) X
+              - col++ 
+          - row++
+      #debug
+        code {{ JSON.stringify(game) }}
+        button(@click='clearBoard()') clear
+        div isEnabled {{ isEnabled }}
+          
     script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
     script(src='https://www.gstatic.com/firebasejs/5.5.5/firebase.js')
     script(src='config.js')
     script(src='tic.js')
+ 

@@ -1,8 +1,29 @@
 {
-  "board": [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-    "hello"
-  ]
+  "game": {
+    "board": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "previous": {
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "type": 2
+    }
+  },
+  "gameCounter": 0
 }

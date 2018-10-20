@@ -9,40 +9,30 @@ const autoprefixer = require('autoprefixer')
 const postcss = require('gulp-postcss')
 const pug = require('gulp-pug')
 
-gulp.task('style', (cb) => {
+gulp.task('style', () => {
   const processors = [autoprefixer({browsers: ['last 5 version']})]
-  pump([
-    gulp.src('./src/**/*.sass'),
-    sass().on('error', sass.logError),
-    sass({outputStyle: 'compressed'}),
-    postcss(processors),
-    gulp.dest('./public/'),
-    livereload({ start: true })
-  ], cb)
+  return gulp.src('src/**/*.sass')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(postcss(processors))
+    .pipe(gulp.dest('public/'))
 })
 
-gulp.task('js', (cb) => {
-  pump([
-    gulp.src('./src/**/*.js'),
-    gulp.dest('./public/'),
-    livereload({ start: true })
-  ], cb)
+gulp.task('js', () => {
+  return gulp.src('src/**/*.js')
+    .pipe(gulp.dest('public/'))
 })
 
-gulp.task('pug', (cb) => {
-  pump([
-    gulp.src('./src/**/*.pug'),
-    pug({ pretty: 0 }),
-    gulp.dest('./public/'),
-    livereload({ start: true })
-  ], cb)
+gulp.task('pug', () => {
+  return gulp.src('src/**/*.pug')
+    .pipe(pug({ pretty: 0 }))
+    .pipe(gulp.dest('public/'))
 })
 
 gulp.task('default', ['style', 'js', 'pug', 'watch'])
 
 gulp.task('watch', () => {
-  livereload.listen()
-  gulp.watch('./src/**/*.sass', ['style'])
-  gulp.watch('./src/**/*.js', ['js'])
-  gulp.watch('./src/**/*.pug', ['pug'])
+  gulp.watch('src/**/*.sass', ['style'])
+  gulp.watch('src/**/*.js', ['js'])
+  gulp.watch('src/**/*.pug', ['pug'])
 })
