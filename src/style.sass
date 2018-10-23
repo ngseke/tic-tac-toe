@@ -14,27 +14,34 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
   justify-content: center
   align-items: center
   flex-direction: column
-
+  main
+    width: 100%
   .row
     justify-content: center
     align-items: center
 
-h1, h2
-  text-align: center
+#logo
+  margin-top: 1rem
 
-h1
-  font-weight: 900
-  font-size: 5rem
-  margin-bottom: 0rem
+  h1, h2
+    text-align: center
 
-h2
-  display: inline-block
-  font-weight: 500
-  font-size: 1.5rem
-  padding: .2rem .5rem
-  transform: translateY(-.5rem)
-  background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%)
-  color: white
+  h1
+    font-weight: 900
+    font-size: 5rem
+    margin-bottom: 0rem
+
+  h2
+    display: inline-block
+    font-weight: 500
+    font-size: 1.5rem
+    padding: .2rem .5rem
+    transform: translateY(-.2rem) skewX(20deg)
+    background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%)
+    color: rgba(white, .95)
+    b
+      font-weight: bold
+      color: white
 
 #config, #status, #board
   margin-bottom: 1rem
@@ -113,10 +120,16 @@ h2
   font-size: .8rem
   padding: 1rem
   letter-spacing: .05rem
+  transition: all .3s
+  border: 1px solid rgba(#fad0c4, 0)
+  margin: 1rem 0
+
+  &:hover
+    border: 1px solid rgba(#fad0c4, .8)
   ul
     height: 12rem
     overflow-y: scroll
-    overflow-x: hidden
+    overflow-x: auto
     li
       margin-bottom: .4rem
     .info
@@ -131,9 +144,21 @@ h2
     .icon
       margin-right: .5rem
       i
+        color: #666
         color: transparent
         background-clip: text
         background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%)
     input
       border: 0
       width: 100%
+      background-image: linear-gradient(165deg, #fdfbfb 50%, #ebedee 100%)
+      letter-spacing: .05rem
+      padding: 0 .5rem
+      &::placeholder
+        font-style: italic
+        color: rgba(black, .3)
+
+footer
+  margin: 2rem 0
+  i
+    color: #999

@@ -140,7 +140,10 @@ const 公開圈圈叉叉 = new Vue({
       if (number === 1) return `O`
       if (number === 2) return `X`
       return number
-    }
+    },
+    convertDate (x) {
+      return moment(x, 'x').fromNow()
+    },
   },
   computed: {
     isEnabled () {
