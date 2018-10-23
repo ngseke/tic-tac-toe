@@ -21,10 +21,12 @@ h1
   font-size: 5rem
   margin-bottom: 1rem
   small
-    font-size: 2rem
+    font-size: 1.5rem
+
+#config, #status, #board
+  margin-bottom: 1rem
 
 #config
-  margin-bottom: 1rem
   font-size: 1.5rem
   a
     display: inline-block
@@ -35,17 +37,35 @@ h1
     background-clip: text
     color: transparent
     background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)
-    transition: transform .2s
+    transition: transform .3s
     &.active
-      transform: scale(1.2)
+      transform: scale(1.5) rotateY(180deg)
+
       &.circle
         background-image: $circle-color
       &.cross
         background-image: $cross-color
 
+#loading
+  i
+    color: #666
+
+#status
+  div, i
+    color: #666
+  .disabled
+    font-style: italic
+  .enabled, .anyone
+    color: #333
+    font-weight: bold
+  .interval
+    font-size: .8rem
+    margin-left: .5rem
 #board
   display: flex
   flex-direction: column
+  &.waiting
+    opacity: .5
   .row
     display: flex
     flex-direction: row
@@ -69,3 +89,5 @@ h1
           background-image: $cross-color
       &:hover
         border: 1px solid rgba(#333, .3)
+      &.previous
+        background-color: rgba(#555, .05)

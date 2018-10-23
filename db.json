@@ -2,27 +2,29 @@
   "game": {
     "board": [
       [
-        0,
-        0,
-        0
+        0,0,0
       ],
       [
-        0,
-        0,
-        0
+        0,0,0
       ],
       [
-        0,
-        0,
-        0
+        0,0,0
       ]
     ],
-    "previous": {
-      "position": {
-        "row": 1,
-        "col": 0
-      },
-      "type": 2
+    "previous": null,
+    "result": {
+      "date": 0,
+      "board": [
+        [
+          0,0,0
+        ],
+        [
+          0,0,0
+        ],
+        [
+          0,0,0
+        ]
+      ]
     }
   },
   "gameCounter": 0
