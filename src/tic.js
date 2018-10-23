@@ -1,6 +1,7 @@
 const 公開圈圈叉叉 = new Vue({
   el: `#app`,
   data: {
+    page: 1,
     game: null,
     gameCounter: null,
     me: 1,
@@ -144,6 +145,10 @@ const 公開圈圈叉叉 = new Vue({
     convertDate (x) {
       return moment(x, 'x').fromNow()
     },
+    togglePage () {
+      const max = 2
+      this.page = (this.page + max + 1) % max
+    }
   },
   computed: {
     isEnabled () {

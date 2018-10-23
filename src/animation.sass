@@ -6,6 +6,7 @@
 
 .block-item-enter, .block-item-leave-to
   transform: scale(.5)
+  transform: scale(.5) skew(45deg)
   opacity: 0
 
 .chat-item-enter-active
@@ -16,3 +17,11 @@
   transform-origin: left
   transform: translateX(-1rem) scale(.7)
   opacity: 0
+
+
+@keyframes about-text
+  from
+    opacity: 0
+    transform: translateX(-5rem)
+  to
+    transform: 0

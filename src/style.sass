@@ -21,7 +21,7 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
     align-items: center
 
 #logo
-  margin-top: 1rem
+  margin: 1rem 0
 
   h1, h2
     text-align: center
@@ -30,7 +30,7 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
     font-weight: 900
     font-size: 5rem
     margin-bottom: 0rem
-
+    cursor: pointer
   h2
     display: inline-block
     font-weight: 500
@@ -44,7 +44,7 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
       color: white
 
 #config, #status, #board
-  margin-bottom: 1rem
+  margin-bottom: .5rem
 
 #config
   font-size: 1.5rem
@@ -57,7 +57,7 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
     background-clip: text
     color: transparent
     background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)
-    transition: transform .3s
+    transition: transform .4s
     &.active
       transform: scale(1.5) rotateY(180deg)
 
@@ -83,6 +83,7 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
   .interval
     font-size: .8rem
     margin-left: .5rem
+
 #board
   display: flex
   flex-direction: column
@@ -136,7 +137,7 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
       font-style: italic
       color: transparent
       background-clip: text
-      background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)
+      background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%)
 
   .input-area
     display: flex
@@ -159,6 +160,34 @@ $cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
         color: rgba(black, .3)
 
 footer
-  margin: 2rem 0
+  position: fixed
+  bottom: 1rem
+  right: 1rem
   i
+    cursor: pointer
     color: #999
+
+#about
+  .row
+    justify-content: center
+    align-items: center
+  h2
+    font-weight: 100
+    animation: about-text .4s ease .2s
+    animation-fill-mode: backwards
+  h3
+    animation: about-text .4s ease .4s
+    animation-fill-mode: backwards
+    font-weight: bold
+    font-style: italic
+    padding-left: 2rem
+  .close-btn
+    display: inline-block
+    margin-top: 1rem
+    font-size: 3rem
+    cursor: pointer
+    font-weight: 100
+    color: rgba(black, .5)
+    &:hover
+      color: rgba(black, .8)
+      
