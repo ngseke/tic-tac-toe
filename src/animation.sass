@@ -7,3 +7,12 @@
 .block-item-enter, .block-item-leave-to
   transform: scale(.5)
   opacity: 0
+
+.chat-item-enter-active
+  transition: all .3s ease
+  transform-origin: left
+
+.chat-item-enter
+  transform-origin: left
+  transform: translateX(-1rem) scale(.8)
+  opacity: 0

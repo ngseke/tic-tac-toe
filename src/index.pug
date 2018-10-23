@@ -7,51 +7,69 @@ html(lang='zh-Hant-TW')
     title 公開圈圈叉叉
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css')
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.1/css/all.css', integrity='sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz' crossorigin='anonymous')
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
+
     link(rel='stylesheet' href='style.css')
     link(rel='stylesheet' href='animation.css')
   body
     #app
-      h1 
-        span(title='公開圈圈叉叉') OOXX
-        small(v-if='gameCounter')  (第 {{ gameCounter }} 屆)
+      .container
+        .row.text-center
+          .col-12
+            h1(title='公開圈圈叉叉')  OOXX
+            h2(v-if='gameCounter')  第 {{ gameCounter }} 屆
       
-      #loading(v-if='!game')
-        i.fas.fa-circle-notch.fa-spin
-      
-      template(v-if='game')
-        #config
-          div 
-            span 你：
-            a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') O
-            a.cross(href='#' @click.prevent='me = 2' :class='{ active: me === 2 }') X
-          
-        #board(:class='{ waiting: isWaiting}')
-          - let row = 0
-          while row < 3
-            .row
-              - let col = 0
-              while col < 3
-                .block(id=`b${row}${col}` @click=`clickBlock(${row}, ${col})` :class=`{ previous: isBlockPrevious(${row}, ${col}) }`)
-                  transition(name='block-item')
-                    span.circle(v-if=`board[${row}][${col}] === 1` key=`O${row}${col}`) O
-                  transition(name='block-item')
-                    span.cross(v-if=`board[${row}][${col}] === 2` key=`X${row}${col}`) X
-                - col++ 
-            - row++
-            
-        #status
-          .winner(v-if='isWaiting') 
-            span 贏家是 {{ convertNumberToTypeText(this.game.result.winner) }}，好棒棒噠
-            span.interval (#[i.fas.fa-stopwatch] {{ timeToStart }})
-          .anyone(v-else-if='!this.game.previous') 隨時都可以開始
-          .enabled(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
-          .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
-          
-        #debug(hidden)
-          code {{ game }}
-          button(@click='clearBoard()') 清
-          button(@click='judgeBoard()') 評
-          
+          .col-12
+            #loading(v-if='!game')
+              i.fas.fa-circle-notch.fa-spin
+                
+          .col-12.col-lg-6.offset-lg-3(v-if='game')
+            #config
+              div 
+                span 你：
+                a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') O
+                a.cross(href='#' @click.prevent='me = 2' :class='{ active: me === 2 }') X
+                
+            #status
+              .winner(v-if='isWaiting') 
+                span(v-if='this.game.result.winner === 3') 平手
+                span(v-else)
+                  | 贏家是 {{ convertNumberToTypeText(this.game.result.winner) }}
+                  span(v-if='me === this.game.result.winner') ，你真是棒棒噠
+                  b(v-else title='你真的很讓我失望') ，加油好嗎？
+                span.interval (#[i.fas.fa-stopwatch] {{ timeToStart }})
+              .anyone(v-else-if='!this.game.previous') 準備好就直接開始
+              .enabled(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
+              .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
+              
+            #board(:class='{ waiting: isWaiting }')
+              - let row = 0
+              while row < 3
+                .row
+                  - let col = 0
+                  while col < 3
+                    .block(id=`b${row}${col}` @click=`clickBlock(${row}, ${col})` :class=`{ previous: isBlockPrevious(${row}, ${col}) }`)
+                      transition(name='block-item')
+                        span.circle(v-if=`board[${row}][${col}] === 1` key=`O${row}${col}`) O
+                      transition(name='block-item')
+                        span.cross(v-if=`board[${row}][${col}] === 2` key=`X${row}${col}`) X
+                    - col++ 
+                - row++
+              
+          .col-12.col-lg-3(v-if='game')
+            #chat
+              ul(ref='chatList')
+                transition-group(name='chat-item' mode='out-in')
+                  li(v-for='(i, id, index) in chat' :key='id' :style='{ opacity: .4 + index * 0.15 }')
+                    .info(v-if='i.name === `info`') {{ i.content }}
+                    div(v-else)
+                      b [{{ i.name }}] 
+                      span {{ i.content }}
+              .input-area
+                span.icon
+                  i.fas.fa-comment-alt
+                input(v-model.trim='chatInputText' @keyup.enter='submitChat()')
+                  
     
     script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
     script(src='https://www.gstatic.com/firebasejs/5.5.5/firebase.js')

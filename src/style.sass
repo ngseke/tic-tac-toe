@@ -6,22 +6,35 @@ body
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)
 
 $circle-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%)
-$cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+$cross-color: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
 
 #app
   display: flex
-  width: 100%
-  height: 100vh
+  min-height: 100vh
   justify-content: center
   align-items: center
   flex-direction: column
 
+  .row
+    justify-content: center
+    align-items: center
+
+h1, h2
+  text-align: center
+
 h1
   font-weight: 900
   font-size: 5rem
-  margin-bottom: 1rem
-  small
-    font-size: 1.5rem
+  margin-bottom: 0rem
+
+h2
+  display: inline-block
+  font-weight: 500
+  font-size: 1.5rem
+  padding: .2rem .5rem
+  transform: translateY(-.5rem)
+  background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%)
+  color: white
 
 #config, #status, #board
   margin-bottom: 1rem
@@ -47,10 +60,12 @@ h1
         background-image: $cross-color
 
 #loading
+  margin-top: 2rem
   i
     color: #666
 
 #status
+  letter-spacing: .1rem
   div, i
     color: #666
   .disabled
@@ -91,3 +106,34 @@ h1
         border: 1px solid rgba(#333, .3)
       &.previous
         background-color: rgba(#555, .05)
+
+
+#chat
+  text-align: left
+  font-size: .8rem
+  padding: 1rem
+  letter-spacing: .05rem
+  ul
+    height: 12rem
+    overflow-y: scroll
+    overflow-x: hidden
+    li
+      margin-bottom: .4rem
+    .info
+      font-style: italic
+      color: transparent
+      background-clip: text
+      background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)
+
+  .input-area
+    display: flex
+    align-items: center
+    .icon
+      margin-right: .5rem
+      i
+        color: transparent
+        background-clip: text
+        background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%)
+    input
+      border: 0
+      width: 100%

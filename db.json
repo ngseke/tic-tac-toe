@@ -27,5 +27,8 @@
       ]
     }
   },
-  "gameCounter": 0
+  "gameCounter": 0,
+  "chat": {
+    
+  }
 }

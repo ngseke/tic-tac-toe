@@ -5,23 +5,55 @@ const 公開圈圈叉叉 = new Vue({
     gameCounter: null,
     me: 1,
     timer: null,
-    interval: 15,
+    interval: 9,
     timeToStart: null,
+    chat: null,
+    chatInputText: ``,
+    chatNumber: 7,
   },
   mounted () {
     this.init()
-    this.timer = setInterval(() => {
-      this.setTimeToStart()
-    }, 1000)
+
   },
   methods: {
+    setTimer () {
+      if(!this.timer)
+        this.timer = setInterval(this.setTimeToStart(), 1000)
+    },
+    clearTimer () {
+      clearInterval(this.timer)
+      this.timer = null
+    },
     init () {
       db.ref(`gameCounter`).on(`value`, snapshot => this.gameCounter = snapshot.val())
       db.ref(`game`).on(`value`, snapshot => {
         this.game = snapshot.val()
+        this.setTimer()
+      })
+      db.ref(`chat`).orderByKey().limitToLast(this.chatNumber).on(`value`, snapshot => {
+        this.chat = snapshot.val()
       })
     },
-    // 發送當前局面
+    submitChat () {
+      if(this.chatInputText !== ``)
+      db.ref(`chat`).push({
+        name: this.convertNumberToTypeText(this.me),
+        content: this.chatInputText,
+        date: moment().format(`x`),
+      })
+      this.chatInputText = ``
+    },
+    submitChatInfo () {
+      const winner = this.convertNumberToTypeText(this.game.result.winner)
+      let content = `優秀的 ${winner} 贏了，他實在好棒棒`
+      if (winner === 3) content = `然而並沒有所謂的贏家
+      `
+      db.ref(`chat`).push({
+        name: `info`,
+        content,
+        date: moment().format(`x`),
+      })
+    },
     submitGame () {
       db.ref('game/').set(this.game).then(() => {
       })
@@ -49,6 +81,8 @@ const 公開圈圈叉叉 = new Vue({
         this.setResult(winner)
         this.clearBoard()
         this.submitGameCounter()
+        this.setTimer()
+        this.submitChatInfo()
       }
       this.submitGame()
     },
@@ -74,6 +108,7 @@ const 公開圈圈叉叉 = new Vue({
         if([0, 1, 2].every(i => board[i][i] === type)) winner = type      // 檢查斜線
         if([0, 1, 2].every(i => board[i][2 - i] === type)) winner = type  // 檢查反斜線
       })
+      if (board.every(row => row.every(block => block !== 0)) && winner === null) winner = 3
 
       return winner
     },
@@ -97,7 +132,9 @@ const 公開圈圈叉叉 = new Vue({
         this.timeToStart = duration
       } else {
         this.timeToStart = -1
+        this.clearTimer()
       }
+      return this.setTimeToStart
     },
     convertNumberToTypeText (number) {
       if (number === 1) return `O`
@@ -124,6 +161,13 @@ const 公開圈圈叉叉 = new Vue({
     },
     isWaiting () {
       return this.timeToStart >= 0 && this.timeToStart !== null
+    }
+  },
+  watch: {
+    chat () {
+      this.$nextTick(() => {
+        this.$refs.chatList.scrollTop = this.$refs.chatList.scrollHeight
+     })
     }
   }
 })
