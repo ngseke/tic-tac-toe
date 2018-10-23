@@ -15,18 +15,18 @@ gulp.task('style', () => {
     .pipe(sass().on('error', sass.logError))
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(postcss(processors))
-    .pipe(gulp.dest('public/'))
+    .pipe(gulp.dest('docs/'))
 })
 
 gulp.task('js', () => {
   return gulp.src('src/**/*.js')
-    .pipe(gulp.dest('public/'))
+    .pipe(gulp.dest('docs/'))
 })
 
 gulp.task('pug', () => {
   return gulp.src('src/**/*.pug')
     .pipe(pug({ pretty: 0 }))
-    .pipe(gulp.dest('public/'))
+    .pipe(gulp.dest('docs/'))
 })
 
 gulp.task('default', ['style', 'js', 'pug', 'watch'])
