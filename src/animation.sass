@@ -1,3 +1,9 @@
+.round-enter-active
+  transition: all .3s ease
+
+.round-enter
+  transform: scale(1.2)
+
 .block-item-enter-active
   transition: all .3s ease
 
@@ -15,9 +21,15 @@
 
 .chat-item-enter
   transform-origin: left
-  transform: translateX(-1rem) scale(.7)
+  transform: translateX(-1rem) scale(0)
   opacity: 0
 
+@keyframes chat-item-content
+  // from
+  //   opacity: 0
+  //   transform: translateY(1rem)
+  // to
+  //   transform: 0
 
 @keyframes about-text
   from
@@ -36,17 +48,24 @@
 @keyframes author-name-text
   0%
     opacity: 0
-    transform: translate(-5.5rem, .5rem)
-    text-shadow: 0 0 0 #feada6
+    transform: translate(-4.5rem, -.5rem)
+    text-shadow: 0 0
   60%
     opacity: 1
-    transform: translate(.5rem, .5rem)
-    text-shadow: 0 0 0 #feada6
+    transform: translate(-.5rem, -.5rem)
+    text-shadow: 0 0
   70%
     opacity: 1
-    transform: translate(.5rem, .5rem)
-    text-shadow: 0 0 0 #feada6
+    transform: translate(-.5rem, -.5rem)
+    text-shadow: 0 0
   100%
     opacity: 1
-    transform:
-    text-shadow: long-shadow(#00f2fe, 8)
+    transform: none
+    text-shadow: long-shadow(#f2cd5d, 6)
+
+@keyframes close-btn
+  from
+    opacity: 0
+    transform: translateY(5rem)
+  to
+    transform: 0

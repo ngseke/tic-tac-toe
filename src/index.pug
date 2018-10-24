@@ -8,18 +8,18 @@ html(lang='zh-Hant-TW')
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css')
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.1/css/all.css', integrity='sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz' crossorigin='anonymous')
     link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
-
     link(rel='stylesheet' href='style.css')
     link(rel='stylesheet' href='animation.css')
   body
     #app
-      main
+      main(v-cloak)
         .container
           .row.text-center
             .col-12
               #logo
                 h1(title='(華麗的)公開圈圈叉叉大賽' @click='')  OOXX
-                h2(v-if='gameCounter')  第 #[b {{ gameCounter }}] 屆
+                transition(name='round')
+                  h2(v-if='gameCounter' :key='round')  第 #[b {{ round }}] 屆
         
             .col-12
               #loading(v-if='!game')
@@ -67,7 +67,7 @@ html(lang='zh-Hant-TW')
                       .info(v-if='i.name === `info`') {{ i.content }}
                       div(v-else)
                         b [{{ i.name }}] 
-                        span {{ i.content }}
+                        span.content {{ i.content }}
                 .input-area
                   span.icon
                     i.fas.fa-comment-alt
@@ -78,7 +78,11 @@ html(lang='zh-Hant-TW')
           .col-auto
             h2 Author
             h3 Huang Xingqiao
-          .col-12.text-center
+          .col-12.link
+            a(href='https://github.com/a92304a92304/tic-tac-toe' target='_blank') #[i.fab.fa-github-alt]
+            a(href='https://x-q.me' target='_blank') #[i.fas.fa-home]
+            
+          .col-12
             .close-btn(@click='page = 0' title='返回') x
             
       footer(v-if='game')

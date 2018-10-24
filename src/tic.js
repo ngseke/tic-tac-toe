@@ -1,7 +1,7 @@
 const 公開圈圈叉叉 = new Vue({
   el: `#app`,
   data: {
-    page: 1,
+    page: 0,
     game: null,
     gameCounter: null,
     me: 1,
@@ -165,7 +165,11 @@ const 公開圈圈叉叉 = new Vue({
     },
     isWaiting () {
       return this.timeToStart >= 0 && this.timeToStart !== null
-    }
+    },
+    round () {
+      if(this.isWaiting) return this.gameCounter - 1
+      return this.gameCounter
+    },
   },
   watch: {
     chat () {
