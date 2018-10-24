@@ -151,7 +151,7 @@ const ox = new Vue({
       return moment(x, 'x').fromNow()
     },
     togglePage (n = null) {
-      const max = 2
+      const max = 3
       this.page = n ? n : (this.page + max + 1) % max
     },
     toggleMe (n = null) {
@@ -202,7 +202,23 @@ const ox = new Vue({
       if(this.isWaiting) return this.gameCounter - 1
       return this.gameCounter
     },
-
+    logoRoundStyle () {
+      const gradients = [
+        `radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%)`,
+        `linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)`,
+        `linear-gradient(to right, #43e97b 0%, #38f9d7 100%)`,
+        `linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%)`,
+        `linear-gradient(-225deg, #B6CEE8 0%, #F578DC 100%)`,
+        `linear-gradient(-60deg, #ff5858 0%, #f09819 100%)`,
+        `linear-gradient(to right, #0acffe 0%, #495aff 100%)`
+      ]
+      if (this.round % 10 === 0)
+        return {
+          backgroundImage: `linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, #ED9C5B 33.33%, #F0E554 33.34%, #F0E554 50%, #7BB875 50.01%, #7BB875 66.66%,  #6EA2D3 66.67%, #6EA2D3 83.33%, #987BB3 83.34%, #987BB3 100%)`
+        }
+      console.log(this.round % gradients.length)
+      return { backgroundImage: gradients[this.round % gradients.length] }
+    }
   },
   watch: {
     chat () {

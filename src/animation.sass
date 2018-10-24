@@ -50,7 +50,7 @@
     transform: none
     text-shadow: long-shadow(rgba(#f2cd5d, .5), 8)
 
-@keyframes close-btn
+@keyframes down-to-up
   from
     opacity: 0
     transform: translateY(5rem)
@@ -63,6 +63,10 @@
 
   to
     opacity: 1
+
+.down-to-up
+  animation: down-to-up .4s ease 
+  animation-fill-mode: backwards
 
 .flash
   animation: flash .8s

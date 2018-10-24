@@ -27,8 +27,8 @@ html(lang='zh-Hant-TW')
           .row.text-center
             .col-12
               #logo
-                h1(title='(華麗的)公開圈圈叉叉大賽' @click='') OOXX
-                h2(v-if='round' :key='round')  第 #[b {{ round }}] 屆
+                h1(title='(華麗的)公開圈圈叉叉大賽' @click='togglePage(2)') OOXX
+                h2(v-if='round' :key='round' :style='logoRoundStyle')  第 #[b {{ round }}] 屆
         
             .col-12
               #loading(v-if='!game')
@@ -96,14 +96,26 @@ html(lang='zh-Hant-TW')
             a(href='https://x-q.me' target='_blank') #[i.fas.fa-home]
             
           .col-12
-            .close-btn(@click='page = 0' title='返回') x
+            .close-btn(@click='togglePage(0)' title='返回') x
+            
+      #info.container(v-if='page === 2')
+        .row
+          .col-auto.content
+            p.down-to-up(style={ animationDelay: `.2s` }) 第 #[b {{ round }}] 屆公開圈圈叉叉開始了
+            p.down-to-up(style={ animationDelay: `.4s` }) 決定當 #[span.type.circle O ] 或是 #[span.type.cross X ] 後
+            p.down-to-up(style={ animationDelay: `.6s` }) 就能與小夥伴同樂囉
+            p.down-to-up.muted(style={ animationDelay: `.8s` }) 但最多就兩個人玩
+          .col-12
+            .close-btn(@click='togglePage(0)' title='返回' style={ animationDelay: `1s` }) x
             
       footer(v-if='game')
-        a(href='#' @click.prevent='togglePage()') #[i.fas.fa-question]
+        a(href='#' @click.prevent='togglePage(1)' v-if='page !== 1') #[i.fas.fa-beer]
 
-    script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
-    script(src='https://www.gstatic.com/firebasejs/5.5.5/firebase.js')
+    script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js')
+    script(src='https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js')
+    script(src='https://www.gstatic.com/firebasejs/5.5.5/firebase-database.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/zh-tw.js')
+    script(src=`bully-browser.js?v=${version}`)
     script(src=`config.js?v=${version}`)
     script(src=`tic.js?v=${version}`)
