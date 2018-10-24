@@ -1,13 +1,11 @@
-const pump = require('pump')
 const gulp = require('gulp')
 const sass = require('gulp-sass')
 const uglify = require('gulp-uglify')
-const concat = require('gulp-concat')
 const htmlmin = require('gulp-htmlmin')
-const livereload = require('gulp-livereload')
 const autoprefixer = require('autoprefixer')
 const postcss = require('gulp-postcss')
 const pug = require('gulp-pug')
+const babel = require('gulp-babel')
 
 gulp.task('style', () => {
   const processors = [autoprefixer({browsers: ['last 5 version']})]
@@ -20,6 +18,10 @@ gulp.task('style', () => {
 
 gulp.task('js', () => {
   return gulp.src('src/**/*.js')
+      // .pipe(babel({
+      //   presets: ['es2015']
+      // }))
+    // .pipe(uglify())
     .pipe(gulp.dest('docs/'))
 })
 
@@ -27,7 +29,7 @@ gulp.task('pug', () => {
   return gulp.src('src/**/*.pug')
     .pipe(pug({
       pretty: 0,
-      locals : { moment: require('moment')}
+      locals : { moment: require('moment') }
     }))
     .pipe(gulp.dest('docs/'))
 })

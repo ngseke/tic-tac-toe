@@ -7,10 +7,7 @@ const config = {
   messagingSenderId: '663947674169'
 }
 firebase.initializeApp(config)
-
 const db = firebase.database()
 
-/////////////////////////////////
-
-const interval = 11
+const interval = 8
 const chatMaxNumber = 10

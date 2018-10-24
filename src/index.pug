@@ -14,8 +14,7 @@ html(lang='zh-Hant-TW')
     meta(name='mobile-web-app-capable' content='yes')
     link(rel='icon' href='logo.png')
     link(rel='apple-touch-icon' href='logo.png')
-
-    title 公開圈圈叉叉大賽
+    title 公開圈圈叉叉
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css')
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.1/css/all.css', integrity='sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz' crossorigin='anonymous')
     link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
@@ -28,7 +27,7 @@ html(lang='zh-Hant-TW')
           .row.text-center
             .col-12
               #logo
-                h1(title='(華麗的)公開圈圈叉叉大賽' @click='')  OOXX
+                h1(title='(華麗的)公開圈圈叉叉大賽' @click='') OOXX
                 h2(v-if='round' :key='round')  第 #[b {{ round }}] 屆
         
             .col-12
@@ -48,8 +47,7 @@ html(lang='zh-Hant-TW')
                     | 贏家是 {{ convertNumberToTypeText(this.game.result.winner) }}
                     span(v-if='me === this.game.result.winner') ，你真是棒棒噠
                     b(v-else title='你真的很讓我失望') ，加油好嗎？
-                  span.interval #[i.fas.fa-stopwatch] {{ timeToStart }}
-                  
+                  span.interval(title='下一屆即將開始') #[i.fas.fa-stopwatch] {{ timeToStart }} 
                 .anyone(v-else-if='!this.game.previous') 準備好就直接開始
                 .enabled.flash(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
                 .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
@@ -76,7 +74,8 @@ html(lang='zh-Hant-TW')
                 ul(ref='chatList')
                   transition-group(name='chat-item' mode='out-in')
                     li(v-for='(i, id, index) in chat' :key='id' :style='{ opacity: .2 + index * 0.10 }'  :title='convertDate(i.date)')
-                      .info(v-if='i.name === `info`') {{ i.content }}
+                      .info(v-if='i.name === `info`') 
+                        | {{ i.content }}
                       div(v-else)
                         b [{{ i.name }}] 
                         span.content {{ i.content }}

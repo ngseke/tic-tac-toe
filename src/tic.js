@@ -1,4 +1,4 @@
-const 公開圈圈叉叉 = new Vue({
+const ox = new Vue({
   el: `#app`,
   data: {
     page: 0,
@@ -154,6 +154,10 @@ const 公開圈圈叉叉 = new Vue({
       const max = 2
       this.page = n ? n : (this.page + max + 1) % max
     },
+    toggleMe (n = null) {
+      const max = 2
+      this.me = n ? n : (this.me === 1) ? 2 : 1
+    },
     getLineClass (row, col) {
       const classObject = {}
       if (!this.isWaiting || !this.game) {
@@ -179,7 +183,7 @@ const 公開圈圈叉叉 = new Vue({
       try {
         return !(this.game.previous.type === this.me)
       }
-      catch {
+      catch (e) {
         return true
       }
     },
