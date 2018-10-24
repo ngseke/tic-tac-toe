@@ -152,7 +152,7 @@ const ox = new Vue({
     },
     togglePage (n = null) {
       const max = 3
-      this.page = n ? n : (this.page + max + 1) % max
+      this.page = (n !== null) ? n : (this.page + max + 1) % max
     },
     toggleMe (n = null) {
       const max = 2
