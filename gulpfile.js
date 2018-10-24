@@ -25,7 +25,10 @@ gulp.task('js', () => {
 
 gulp.task('pug', () => {
   return gulp.src('src/**/*.pug')
-    .pipe(pug({ pretty: 0 }))
+    .pipe(pug({
+      pretty: 0,
+      locals : { moment: require('moment')}
+    }))
     .pipe(gulp.dest('docs/'))
 })
 
