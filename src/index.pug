@@ -7,6 +7,14 @@ html(lang='zh-Hant-TW')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
     meta(name='description' content='第 N 屆公開圈圈叉叉大賽開始了！')
+    meta(name='apple-mobile-web-app-capable' content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style' content='black-translucent')
+    meta(name='apple-touch-fullscreen' content='yes')
+    meta(name='apple-mobile-web-app-title' content='公開圈圈叉叉大賽')
+    meta(name='mobile-web-app-capable' content='yes')
+    link(rel='icon' href='logo.png')
+    link(rel='apple-touch-icon' href='logo.png')
+
     title 公開圈圈叉叉大賽
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css')
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.1/css/all.css', integrity='sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz' crossorigin='anonymous')
@@ -27,7 +35,7 @@ html(lang='zh-Hant-TW')
               #loading(v-if='!game')
                 i.fas.fa-circle-notch.fa-spin
                   
-            .col-12.col-lg-6.offset-lg-3(v-if='game' v-show='page === 0')
+            .col-12.col-lg-6.offset-lg-3.col-md-4.offset-md-4(v-if='game' v-show='page === 0')
               #config
                 div 
                   a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') O
@@ -43,7 +51,7 @@ html(lang='zh-Hant-TW')
                   span.interval #[i.fas.fa-stopwatch] {{ timeToStart }}
                   
                 .anyone(v-else-if='!this.game.previous') 準備好就直接開始
-                .enabled(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
+                .enabled.flash(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
                 .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
                 
               #board(:class='{ waiting: isWaiting, disabled: !isEnabled }')
@@ -63,11 +71,11 @@ html(lang='zh-Hant-TW')
                       - col++ 
                   - row++
                 
-            .col-11.col-lg-3(v-if='game' v-show='page === 0')
+            .col-11.col-lg-3.col-md-4(v-if='game' v-show='page === 0')
               #chat
                 ul(ref='chatList')
                   transition-group(name='chat-item' mode='out-in')
-                    li(v-for='(i, id, index) in chat' :key='id' :style='{ opacity: .4 + index * 0.10 }'  :title='convertDate(i.date)')
+                    li(v-for='(i, id, index) in chat' :key='id' :style='{ opacity: .2 + index * 0.10 }'  :title='convertDate(i.date)')
                       .info(v-if='i.name === `info`') {{ i.content }}
                       div(v-else)
                         b [{{ i.name }}] 

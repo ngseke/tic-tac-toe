@@ -32,7 +32,12 @@ gulp.task('pug', () => {
     .pipe(gulp.dest('docs/'))
 })
 
-gulp.task('default', ['style', 'js', 'pug', 'watch'])
+gulp.task('img', () => {
+  return gulp.src('src/img/**')
+    .pipe(gulp.dest('docs/'))
+})
+
+gulp.task('default', ['style', 'js', 'pug', 'img', 'watch'])
 
 gulp.task('watch', () => {
   gulp.watch('src/**/*.sass', ['style'])

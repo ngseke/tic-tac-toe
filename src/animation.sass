@@ -56,3 +56,15 @@
     transform: translateY(5rem)
   to
     transform: 0
+
+@keyframes flash
+  from
+    opacity: 0
+
+  to
+    opacity: 1
+
+.flash
+  animation: flash .8s
+  animation-direction: alternate-reverse
+  animation-iteration-count: infinite
