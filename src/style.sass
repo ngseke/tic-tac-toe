@@ -91,17 +91,18 @@ $cross-color: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #f
   display: flex
   flex-direction: column
   &.waiting
-    opacity: .5
-  &.disabled
+    opacity: .9
+  &.disabled, &.waiting
     .row .block:hover
       border: 1px solid rgba(#333, .1)
-      cursor: wait
+      cursor: auto
 
   .row
     display: flex
     flex-direction: row
     .block
-      overflow: hidden
+      position: relative
+      overflow: visible
       display: flex
       justify-content: center
       align-items: center
@@ -124,6 +125,30 @@ $cross-color: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #f
       &.previous
         background-color: rgba(#555, .05)
 
+  $line-length: 16rem
+  $line-slash-offset: 6.5rem
+
+  .line
+    z-index: 9999
+    height: .5rem
+    width: .5rem
+    border-radius: 100rem
+    background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%)
+    opacity: .7
+    position: absolute
+    transition: width 1s, height 1s
+    &.h  // 橫
+      width: $line-length
+    &.v  // 直
+      height: $line-length
+    &.s  // 斜線
+      height: $line-length + $line-slash-offset
+      transform: rotateZ(-45deg)
+    &.bs  // 反斜線
+      height: $line-length + $line-slash-offset
+      transform: rotateZ(45deg)
+    &.hidden
+      opacity: 0
 
 #chat
   text-align: left
@@ -147,7 +172,7 @@ $cross-color: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #f
       font-weight: bold
       color: transparent
       background-clip: text
-      background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%)
+      background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%)
     .content
       display: inline-block
       animation: chat-item-content .3s ease .2s

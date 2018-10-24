@@ -66,17 +66,18 @@ const 公開圈圈叉叉 = new Vue({
         this.checkGame()
       }
     },
-    setResult (winner) {
+    setResult (result) {
       this.game.result = {
         date: parseInt(moment().format(`x`)),
         board: Object.assign({}, this.game.board),
-        winner
+        direction: result.direction,
+        winner: result.winner,
       }
     },
     checkGame () {
-      const winner = this.judgeBoard()
+      const result = this.judgeBoard()
       if (this.judgeBoard()) {
-        this.setResult(winner)
+        this.setResult(result)
         this.clearBoard()
         this.submitGameCounter()
         this.setTimer()
@@ -92,23 +93,31 @@ const 公開圈圈叉叉 = new Vue({
       })
     },
     judgeBoard () {
-      let winner = null
+      let result = null
       const board = this.game.board
       const types = [1, 2]
 
       types.forEach(type => {
         for (let i = 0; i < 3; i++) {
-          if (board[i][0] === type && board[i][1] === type && board[i][2] === type) // 檢查橫
-            winner = type
-          if (board[0][i] === type && board[1][i] === type && board[2][i] === type) // 檢查直
-            winner = type
+          if (board[i][0] === type && board[i][1] === type && board[i][2] === type) { // 檢查橫
+            result = { winner: type, direction: [`h`, i] }
+          }
+          if (board[0][i] === type && board[1][i] === type && board[2][i] === type) { // 檢查直
+            result = { winner: type, direction: [`v`, i] }
+          }
         }
-        if([0, 1, 2].every(i => board[i][i] === type)) winner = type      // 檢查斜線
-        if([0, 1, 2].every(i => board[i][2 - i] === type)) winner = type  // 檢查反斜線
+        if([0, 1, 2].every(i => board[i][i] === type)) {  // 檢查斜線
+          result = { winner: type, direction: [`s`, 0] }
+        }
+        if([0, 1, 2].every(i => board[i][2 - i] === type)) {  // 檢查反斜線
+          result = { winner: type, direction: [`bs`, 0] }
+        }
       })
-      if (board.every(row => row.every(block => block !== 0)) && winner === null) winner = 3
 
-      return winner
+      if (board.every(row => row.every(block => block !== 0)) && result === null)
+        result = { winner: 3, direction: [`hidden`, 0] }
+
+      return result
     },
     setPrevious (row, col, me) {
       this.game.previous = {
@@ -141,9 +150,28 @@ const 公開圈圈叉叉 = new Vue({
     convertDate (x) {
       return moment(x, 'x').fromNow()
     },
-    togglePage () {
+    togglePage (n = null) {
       const max = 2
-      this.page = (this.page + max + 1) % max
+      this.page = n ? n : (this.page + max + 1) % max
+    },
+    getLineClass (row, col) {
+      const classObject = {}
+      if (!this.isWaiting || !this.game) {
+        classObject.hidden = true
+      } else {
+        const direction = this.game.result.direction[0]
+        const number = this.game.result.direction[1]
+        if (this.isWaiting && this.game)
+          classObject[direction] = true
+        if ([`s`, `bs`].some(val => direction === val))
+          classObject.hidden = !(row === 1 && col === 1)
+        if (direction === `h`)
+          classObject.hidden = !(row === number && col === 1)
+        if (direction === `v`)
+          classObject.hidden = !(col === number && row === 1)
+      }
+
+      return classObject
     }
   },
   computed: {
@@ -170,6 +198,7 @@ const 公開圈圈叉叉 = new Vue({
       if(this.isWaiting) return this.gameCounter - 1
       return this.gameCounter
     },
+
   },
   watch: {
     chat () {

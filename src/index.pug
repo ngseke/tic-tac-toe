@@ -19,8 +19,7 @@ html(lang='zh-Hant-TW')
             .col-12
               #logo
                 h1(title='(華麗的)公開圈圈叉叉大賽' @click='')  OOXX
-                transition(name='round')
-                  h2(v-if='gameCounter' :key='round')  第 #[b {{ round }}] 屆
+                h2(v-if='round' :key='round')  第 #[b {{ round }}] 屆
         
             .col-12
               #loading(v-if='!game')
@@ -29,7 +28,6 @@ html(lang='zh-Hant-TW')
             .col-12.col-lg-6.offset-lg-3(v-if='game' v-show='page === 0')
               #config
                 div 
-                  //- span 你：
                   a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') O
                   a.cross(href='#' @click.prevent='me = 2' :class='{ active: me === 2 }') X
                   
@@ -47,12 +45,15 @@ html(lang='zh-Hant-TW')
                 .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
                 
               #board(:class='{ waiting: isWaiting, disabled: !isEnabled }')
+                
                 - let row = 0
                 while row < 3
                   .row
                     - let col = 0
                     while col < 3
-                      .block(id=`b${row}${col}` @click=`clickBlock(${row}, ${col})` :class=`{ previous: isBlockPrevious(${row}, ${col}) }`)
+                      .block(id=`b${row}${col}` ref=`b${row}${col}` @click=`clickBlock(${row}, ${col})` :class=`{ previous: isBlockPrevious(${row}, ${col}) }`)
+                        - if(row === 1 || col === 1)
+                          .line(:class=`getLineClass(${row}, ${col})`)
                         transition(name='block-item')
                           span.circle(v-if=`board[${row}][${col}] === 1` key=`O${row}${col}`) O
                         transition(name='block-item')
@@ -87,7 +88,7 @@ html(lang='zh-Hant-TW')
             .close-btn(@click='page = 0' title='返回') x
             
       footer(v-if='game')
-        i.fas.fa-question(@click='togglePage()')
+        a(href='#' @click.prevent='togglePage()') #[i.fas.fa-question]
 
     script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
     script(src='https://www.gstatic.com/firebasejs/5.5.5/firebase.js')
