@@ -12,5 +12,5 @@ const db = firebase.database()
 
 /////////////////////////////////
 
-const interval = 9
-const chatNumber = 7
+const interval = 11
+const chatMaxNumber = 15

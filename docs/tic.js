@@ -28,7 +28,7 @@ const 公開圈圈叉叉 = new Vue({
         this.game = snapshot.val()
         this.setTimer()
       })
-      db.ref(`chat`).orderByKey().limitToLast(chatNumber).on(`value`, snapshot => {
+      db.ref(`chat`).orderByKey().limitToLast(chatMaxNumber).on(`value`, snapshot => {
         this.chat = snapshot.val()
       })
     },

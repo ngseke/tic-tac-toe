@@ -86,6 +86,12 @@ $cross-color: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #f
   .interval
     font-size: .8rem
     margin-left: .5rem
+    padding: .1rem .25rem
+    border-radius: 5px
+    background-image: linear-gradient(100deg, rgba(#434343, .6) 0%, rgba(black, .7) 100%)
+    &, i
+      color: #fff
+
 
 #board
   display: flex
@@ -130,8 +136,8 @@ $cross-color: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #f
 
   .line
     z-index: 9999
-    height: .5rem
-    width: .5rem
+    height: .6rem
+    width: .6rem
     border-radius: 100rem
     background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%)
     opacity: .7
@@ -231,13 +237,13 @@ footer
     font-size: 1.5rem
     font-style: italic
     padding-left: 2rem
-    animation: author-name-text .5s ease .4s
+    animation: author-name-text .6s ease .4s
     animation-fill-mode: forwards
     opacity: 0
 
   .link
     margin-top: 1.2rem
-    animation: close-btn .4s ease .8s
+    animation: close-btn .4s ease .9s
     animation-fill-mode: backwards
 
   .close-btn
@@ -247,7 +253,7 @@ footer
     cursor: pointer
     font-weight: 100
     color: rgba(black, .5)
-    animation: close-btn .4s ease 1s
+    animation: close-btn .4s ease 1.1s
     animation-fill-mode: backwards
 
     &:hover

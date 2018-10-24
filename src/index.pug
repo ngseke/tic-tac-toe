@@ -38,7 +38,7 @@ html(lang='zh-Hant-TW')
                     | 贏家是 {{ convertNumberToTypeText(this.game.result.winner) }}
                     span(v-if='me === this.game.result.winner') ，你真是棒棒噠
                     b(v-else title='你真的很讓我失望') ，加油好嗎？
-                  span.interval (#[i.fas.fa-stopwatch] {{ timeToStart }})
+                  span.interval #[i.fas.fa-stopwatch] {{ timeToStart }}
                   
                 .anyone(v-else-if='!this.game.previous') 準備好就直接開始
                 .enabled(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
