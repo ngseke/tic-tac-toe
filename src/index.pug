@@ -45,7 +45,7 @@ html(lang='zh-Hant-TW')
                 .enabled(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
                 .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
                 
-              #board(:class='{ waiting: isWaiting }')
+              #board(:class='{ waiting: isWaiting, disabled: !isEnabled }')
                 - let row = 0
                 while row < 3
                   .row
@@ -79,7 +79,7 @@ html(lang='zh-Hant-TW')
             h2 Author
             h3 Huang Xingqiao
           .col-12.text-center
-            .close-btn(@click='page = 0') x
+            .close-btn(@click='page = 0' title='返回') x
             
       footer(v-if='game')
         i.fas.fa-question(@click='togglePage()')

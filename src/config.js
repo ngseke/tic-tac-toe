@@ -9,3 +9,13 @@ const config = {
 firebase.initializeApp(config)
 
 const db = firebase.database()
+
+/////////////////////////////////
+
+const interval = 9
+const chatNumber = 7
+
+const chatInfoText = {
+  win: ``,
+  draw: ``
+}

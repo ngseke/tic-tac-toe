@@ -6,15 +6,12 @@ const 公開圈圈叉叉 = new Vue({
     gameCounter: null,
     me: 1,
     timer: null,
-    interval: 9,
     timeToStart: null,
     chat: null,
     chatInputText: ``,
-    chatNumber: 7,
   },
   mounted () {
     this.init()
-
   },
   methods: {
     setTimer () {
@@ -31,7 +28,7 @@ const 公開圈圈叉叉 = new Vue({
         this.game = snapshot.val()
         this.setTimer()
       })
-      db.ref(`chat`).orderByKey().limitToLast(this.chatNumber).on(`value`, snapshot => {
+      db.ref(`chat`).orderByKey().limitToLast(chatNumber).on(`value`, snapshot => {
         this.chat = snapshot.val()
       })
     },
@@ -124,7 +121,6 @@ const 公開圈圈叉叉 = new Vue({
       return (p) ? row === p.row && col === p.col : false
     },
     setTimeToStart () {
-      const interval = this.interval
       const lastDate = moment(this.game.result.date).add(interval, 's')
       const now = moment()
 
