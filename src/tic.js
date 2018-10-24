@@ -53,8 +53,7 @@ const ox = new Vue({
       })
     },
     submitGame () {
-      db.ref('game/').set(this.game).then(() => {
-      })
+      db.ref('game/').set(this.game)
     },
     submitGameCounter () {
       db.ref('gameCounter/').set(this.gameCounter + 1)
@@ -216,7 +215,6 @@ const ox = new Vue({
         return {
           backgroundImage: `linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, #ED9C5B 33.33%, #F0E554 33.34%, #F0E554 50%, #7BB875 50.01%, #7BB875 66.66%,  #6EA2D3 66.67%, #6EA2D3 83.33%, #987BB3 83.34%, #987BB3 100%)`
         }
-      console.log(this.round % gradients.length)
       return { backgroundImage: gradients[this.round % gradients.length] }
     }
   },
