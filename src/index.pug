@@ -23,51 +23,56 @@ html(lang='zh-Hant-TW')
   body
     #app
       main(v-cloak)
+        //- transition(name='full-loader')
+        //-   #full-loader(v-if='!game') 
+        //-     i.fas.fa-circle-notch.fa-spin
+          
         .container
           .row.text-center
             .col-12
               #logo
-                h1(title='(華麗的)公開圈圈叉叉大賽' @click='game && togglePage(2)') OOXX
-                h2(v-if='round' :key='round' :style='logoRoundStyle')  第 #[b {{ round }}] 屆
+                h1(title='(華麗的) 公開圈圈叉叉大賽' @click='game && togglePage(2)') {{ circleText.repeat(2) + crossText.repeat(2) }}
+                h2(v-if='round' :key='round' :style='logoRoundStyle' title='你以為這只是單純的圈圈叉叉遊戲嗎？ 恩沒有錯哦')  第 #[b {{ round }}] 屆
         
             .col-12
               #loading(v-if='!game')
                 i.fas.fa-circle-notch.fa-spin
+            
+            transition(name='show-up')
+              .col-12.col-lg-6.offset-lg-3.col-md-4.offset-md-4(v-if='game' v-show='page === 0')
+                #config
+                  div 
+                    a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') {{ circleText }}
+                    a.cross(href='#' @click.prevent='me = 2' :class='{ active: me === 2 }') {{ crossText }}
+                    
+                #status
+                  .winner(v-if='isWaiting') 
+                    span(v-if='this.game.result.winner === 3') 平手
+                    span(v-else)
+                      | 贏家是 {{ convertNumberToTypeText(this.game.result.winner) }}
+                      span(v-if='me === this.game.result.winner') ，你真是棒棒噠
+                      b(v-else title='你真的很讓我失望') ，加油好嗎？
+                    span.interval(title='稍後下一屆即將開始...') #[i.fas.fa-stopwatch] {{ (parseInt(timeToStart) + 1) }} 
+                  .anyone(v-else-if='!this.game.previous') 準備好就直接開始
+                  .enabled.flash(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
+                  .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
                   
-            .col-12.col-lg-6.offset-lg-3.col-md-4.offset-md-4(v-if='game' v-show='page === 0')
-              #config
-                div 
-                  a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') O
-                  a.cross(href='#' @click.prevent='me = 2' :class='{ active: me === 2 }') X
+                #board(:class='{ waiting: isWaiting, disabled: !isEnabled }')
                   
-              #status
-                .winner(v-if='isWaiting') 
-                  span(v-if='this.game.result.winner === 3') 平手
-                  span(v-else)
-                    | 贏家是 {{ convertNumberToTypeText(this.game.result.winner) }}
-                    span(v-if='me === this.game.result.winner') ，你真是棒棒噠
-                    b(v-else title='你真的很讓我失望') ，加油好嗎？
-                  span.interval(title='下一屆即將開始') #[i.fas.fa-stopwatch] {{ timeToStart }} 
-                .anyone(v-else-if='!this.game.previous') 準備好就直接開始
-                .enabled.flash(v-else-if='isEnabled') #[i.fas.fa-hand-point-down] 換你了
-                .disabled(v-else) #[i.fas.fa-stopwatch] 等對方下...
-                
-              #board(:class='{ waiting: isWaiting, disabled: !isEnabled }')
-                
-                - let row = 0
-                while row < 3
-                  .row
-                    - let col = 0
-                    while col < 3
-                      .block(id=`b${row}${col}` ref=`b${row}${col}` @click=`clickBlock(${row}, ${col})` :class=`{ previous: isBlockPrevious(${row}, ${col}) }`)
-                        - if(row === 1 || col === 1)
-                          .line(:class=`getLineClass(${row}, ${col})`)
-                        transition(name='block-item')
-                          span.circle(v-if=`board[${row}][${col}] === 1` key=`O${row}${col}`) O
-                        transition(name='block-item')
-                          span.cross(v-if=`board[${row}][${col}] === 2` key=`X${row}${col}`) X
-                      - col++ 
-                  - row++
+                  - let row = 0
+                  while row < 3
+                    .row
+                      - let col = 0
+                      while col < 3
+                        .block(id=`b${row}${col}` ref=`b${row}${col}` @click=`clickBlock(${row}, ${col})` :class=`{ previous: isBlockPrevious(${row}, ${col}) }`)
+                          - if(row === 1 || col === 1)
+                            .line(:class=`getLineClass(${row}, ${col})`)
+                          transition(name='block-item')
+                            span.circle(v-if=`board[${row}][${col}] === 1` key=`O${row}${col}`) {{ circleText }}
+                          transition(name='block-item')
+                            span.cross(v-if=`board[${row}][${col}] === 2` key=`X${row}${col}`) {{ crossText }}
+                        - col++ 
+                    - row++
                 
             .col-11.col-lg-3.col-md-4(v-if='game' v-show='page === 0')
               #chat
@@ -101,10 +106,10 @@ html(lang='zh-Hant-TW')
       #info.container(v-if='page === 2')
         .row
           .col-auto.content
-            p.down-to-up.bold(style={ animationDelay: `.2s` }) 第 #[b {{ round }}] 屆公開圈圈叉叉已盛大舉行！
-            p.down-to-up(style={ animationDelay: `.4s` }) 決定當 #[span.type.circle O ] 或是 #[span.type.cross X ] 後
+            p.down-to-up.bold(style={ animationDelay: `.2s` }) 第 #[b {{ round }}] 屆公開圈圈叉叉已盛大舉行
+            p.down-to-up(style={ animationDelay: `.4s` }) 決定當 #[span.type.circle {{ circleText }} ] 或 #[span.type.cross {{ crossText }} ] 後
             p.down-to-up(style={ animationDelay: `.6s` }) 就能與小夥伴同樂囉
-            p.down-to-up.muted(style={ animationDelay: `.8s` }) 但最多也就兩個人玩
+            //- p.down-to-up.muted(style={ animationDelay: `.8s` }) 但最多只能兩個人玩
           .col-12
             .close-btn(@click='togglePage(0)' title='返回' style={ animationDelay: `1s` }) x
             

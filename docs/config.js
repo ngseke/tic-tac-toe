@@ -9,5 +9,8 @@ const config = {
 firebase.initializeApp(config)
 const db = firebase.database()
 
-const interval = 8
+const interval = 5
 const chatMaxNumber = 10
+
+const circleText = `O`
+const crossText = `X`

@@ -9,6 +9,8 @@ const ox = new Vue({
     timeToStart: null,
     chat: null,
     chatInputText: ``,
+    circleText,
+    crossText,
   },
   mounted () {
     this.init()
@@ -142,8 +144,8 @@ const ox = new Vue({
       return this.setTimeToStart
     },
     convertNumberToTypeText (number) {
-      if (number === 1) return `O`
-      if (number === 2) return `X`
+      if (number === 1) return this.circleText
+      if (number === 2) return this.crossText
       return number
     },
     convertDate (x) {

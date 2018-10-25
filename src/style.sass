@@ -1,16 +1,18 @@
+$circle-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%)
+$cross-color: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%)
+$rainbow: linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, #ED9C5B 33.33%, #F0E554 33.34%, #F0E554 50%, #7BB875 50.01%, #7BB875 66.66%,  #6EA2D3 66.67%, #6EA2D3 83.33%, #987BB3 83.34%, #987BB3 100%)
+$background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)
+$time-function: cubic-bezier(1, 0.8, 0.3, 1)
+
 *
   box-sizing: border-box
   color: #1e1e1e
 
-body
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)
+html, body
+  background-image: $background
 
 [v-cloak]
   display: none
-
-$circle-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%)
-$cross-color: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%)
-$rainbow: linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, #ED9C5B 33.33%, #F0E554 33.34%, #F0E554 50%, #7BB875 50.01%, #7BB875 66.66%,  #6EA2D3 66.67%, #6EA2D3 83.33%, #987BB3 83.34%, #987BB3 100%)
 
 #app
   display: flex
@@ -26,7 +28,6 @@ $rainbow: linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, 
 
 #logo
   margin: 1rem 0
-  transition: all .2s
   h1, h2
     text-align: center
 
@@ -61,9 +62,9 @@ $rainbow: linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, 
     background-clip: text
     color: transparent
     background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)
-    transition: transform .4s
+    transition: transform .6s
     &.active
-      transform: scale(1.5) rotateY(180deg)
+      transform: scale(1.5) rotateY(360deg)
 
       &.circle
         background-image: $circle-color
@@ -146,7 +147,7 @@ $rainbow: linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, 
     background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%)
     opacity: .7
     position: absolute
-    transition: width 1s, height 1s
+    transition: width 1s $time-function, height 1s $time-function
     &.h  // 橫
       width: $line-length
     &.v  // 直
@@ -165,7 +166,7 @@ $rainbow: linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, 
   font-size: .8rem
   padding: 1rem
   letter-spacing: .05rem
-  transition: all .3s
+  transition: border .3s
   border: 1px solid rgba(#fad0c4, 0)
   margin: 1rem 0
 
@@ -185,8 +186,6 @@ $rainbow: linear-gradient(to right, #E5527A 0%, #E5527A 16.66%, #ED9C5B 16.67%, 
       background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%)
     .content
       display: inline-block
-      animation: chat-item-content .3s ease .2s
-      animation-fill-mode: backwards
 
   .input-area
     display: flex
@@ -301,3 +300,16 @@ footer
       background-image: $circle-color
     &.cross
       background-image: $cross-color
+
+
+#full-loader
+  position: fixed
+  display: flex
+  justify-content: center
+  align-items: center
+  z-index: 100
+  background-image: $background
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%

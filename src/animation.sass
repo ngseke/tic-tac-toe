@@ -48,7 +48,7 @@
   100%
     opacity: 1
     transform: none
-    text-shadow: long-shadow(rgba(#f2cd5d, .5), 8)
+    text-shadow: long-shadow(#f2cd5d, 8)
 
 @keyframes down-to-up
   from
@@ -59,16 +59,35 @@
 
 @keyframes flash
   from
-    opacity: 0
+    opacity: .5
 
   to
     opacity: 1
 
 .down-to-up
-  animation: down-to-up .4s ease 
+  animation: down-to-up .4s ease
   animation-fill-mode: backwards
 
 .flash
-  animation: flash .8s
+  animation: flash .5s
   animation-direction: alternate-reverse
   animation-iteration-count: infinite
+
+.show-up
+  animation: down-to-up .4s ease
+  animation-fill-mode: backwards
+
+.show-up-enter-active
+  transition: all .7s cubic-bezier(1, 0.8, 0.3, 1) 0s
+
+.show-up-enter
+  transform: scale(.7)
+  // filter: blur(3px)
+  opacity: 0
+
+.full-loader-leave-active
+  transition: all .7s ease
+
+.full-loader-leave-to
+  // transform: translateY(-100%)
+  opacity: 0
