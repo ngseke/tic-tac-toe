@@ -43,9 +43,9 @@ html(lang='zh-Hant-TW')
             .col-12
               #loading(v-if='!game')
                 i.fas.fa-circle-notch.fa-spin
-            .col-lg-3.col-md-4
+            .col-lg-3.col-md-4(v-if='page === 0')
               #cat(v-if='cat')
-                img.img-fluid(:src='cat')
+                img.img-fluid(:src='cat' title='貓貓陪你等待')
                 
             transition(name='show-up')
               .col-12.col-lg-6.col-md-4(v-if='game' v-show='page === 0')
