@@ -19,7 +19,7 @@ const ox = new Vue({
   methods: {
     setTimer () {
       if (!this.timer) {
-        this.timer = setInterval(this.setTimeToStart(), 1000)
+        this.timer = setInterval(this.setTimeToStart(), 500)
       }
     },
     clearTimer () {
@@ -77,7 +77,6 @@ const ox = new Vue({
         direction: result.direction,
         winner: result.winner,
       }
-      this.setCatImg()
     },
     checkGame () {
       const result = this.judgeBoard()
@@ -87,6 +86,7 @@ const ox = new Vue({
         this.submitGameCounter()
         this.setTimer()
         this.submitChatInfo()
+        this.setCatImg()
       }
       this.submitGame()
     },
