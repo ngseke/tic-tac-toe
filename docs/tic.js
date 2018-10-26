@@ -9,6 +9,7 @@ const ox = new Vue({
     timeToStart: null,
     chat: null,
     chatInputText: ``,
+    cat: null,
     circleText,
     crossText,
   },
@@ -17,11 +18,13 @@ const ox = new Vue({
   },
   methods: {
     setTimer () {
-      if(!this.timer)
+      if (!this.timer) {
         this.timer = setInterval(this.setTimeToStart(), 1000)
+      }
     },
     clearTimer () {
       clearInterval(this.timer)
+      this.cat = null
       this.timer = null
     },
     init () {
@@ -74,6 +77,7 @@ const ox = new Vue({
         direction: result.direction,
         winner: result.winner,
       }
+      this.setCatImg()
     },
     checkGame () {
       const result = this.judgeBoard()
@@ -177,6 +181,12 @@ const ox = new Vue({
       }
 
       return classObject
+    },
+    setCatImg () {
+      const api = `https://api.thecatapi.com/api/images/get?format=json&results_per_page=1`
+      axios.get(api).then((res) => {
+        this.cat = res.data[0].url
+      })
     }
   },
   computed: {

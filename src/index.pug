@@ -33,7 +33,6 @@ html(lang='zh-Hant-TW')
             //-         span.type.circle {{ circleText }}
             //-         span.type.cross {{ crossText }}
               
-              
         .container  
           .row.text-center
             .col-12
@@ -44,9 +43,12 @@ html(lang='zh-Hant-TW')
             .col-12
               #loading(v-if='!game')
                 i.fas.fa-circle-notch.fa-spin
-            
+            .col-lg-3.col-md-4
+              #cat(v-if='cat')
+                img.img-fluid(:src='cat')
+                
             transition(name='show-up')
-              .col-12.col-lg-6.offset-lg-3.col-md-4.offset-md-4(v-if='game' v-show='page === 0')
+              .col-12.col-lg-6.col-md-4(v-if='game' v-show='page === 0')
                 #config
                   div 
                     a.circle(href='#' @click.prevent='me = 1' :class='{ active: me === 1 }') {{ circleText }}
@@ -128,6 +130,7 @@ html(lang='zh-Hant-TW')
     script(src='https://www.gstatic.com/firebasejs/5.5.5/firebase-database.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/zh-tw.js')
+    script(src='https://unpkg.com/axios/dist/axios.min.js')
     script(src=`bully-browser.js?v=${version}`)
     script(src=`config.js?v=${version}`)
     script(src=`tic.js?v=${version}`)
