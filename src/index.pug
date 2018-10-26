@@ -23,11 +23,18 @@ html(lang='zh-Hant-TW')
   body
     #app
       main(v-cloak)
-        //- transition(name='full-loader')
-        //-   #full-loader(v-if='!game') 
-        //-     i.fas.fa-circle-notch.fa-spin
-          
-        .container
+        transition(name='full-loader')
+          #full-loader(v-if='!game') 
+            i.fas.fa-circle-notch.fa-spin
+            //- .ooxx
+            //-   .box
+            //-     - let oxCounter = 0
+            //-       while (oxCounter++) < 100
+            //-         span.type.circle {{ circleText }}
+            //-         span.type.cross {{ crossText }}
+              
+              
+        .container  
           .row.text-center
             .col-12
               #logo
@@ -109,7 +116,7 @@ html(lang='zh-Hant-TW')
             p.down-to-up.bold(style={ animationDelay: `.2s` }) 第 #[b {{ round }}] 屆公開圈圈叉叉已盛大舉行
             p.down-to-up(style={ animationDelay: `.4s` }) 決定當 #[span.type.circle {{ circleText }} ] 或 #[span.type.cross {{ crossText }} ] 後
             p.down-to-up(style={ animationDelay: `.6s` }) 就能與小夥伴同樂囉
-            //- p.down-to-up.muted(style={ animationDelay: `.8s` }) 但最多只能兩個人玩
+            p.down-to-up.muted(style={ animationDelay: `.8s` }) (最多只能兩個人玩)
           .col-12
             .close-btn(@click='togglePage(0)' title='返回' style={ animationDelay: `1s` }) x
             
